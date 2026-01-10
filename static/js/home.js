@@ -1,0 +1,1 @@
+console.log("Using external Js! Home page");

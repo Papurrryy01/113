@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+About Us
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+
+{% block js %}
+    <script src="{% static 'js/about.js' %}"></script>
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="container">
+        <h1>About Our Company</h1>
+        <p>Our company was founded with the mission to provide exceptional services and solutions to our clients. We pride ourselves on our commitment to quality, innovation, and customer satisfaction.</p>
+        <p>With a team of dedicated professionals, we strive to exceed expectations and deliver results that make a difference. Our values are rooted in integrity, collaboration, and continuous improvement.</p>
+        <p>We believe in building long-term relationships with our clients, understanding their unique needs, and tailoring our services to meet those needs effectively.</p>
+        <p>Thank you for taking the time to learn more about us. We look forward to the opportunity to work with you and help you achieve your goals.</p>
+        <p>Sincerely,</p>
+        <p>The Team</p>
+    </div>
+{% endblock %}
