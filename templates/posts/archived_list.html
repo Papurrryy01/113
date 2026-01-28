@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Archived Posts{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/posts.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container post-page">
+  <h1>Archived Posts</h1>
+  {% if posts %}
+    <div class="row g-4">
+      {% for item in posts %}
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card post-card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ item.title }}</h5>
+              <p class="post-meta mb-3">{{ item.created_on|date:"M j, Y" }} · {{ item.author }}</p>
+              <p class="post-meta mb-3">Status: {{ item.status }}</p>
+              <a href="{% url 'post_detail' item.id %}" class="card-link">Continue reading</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-muted">No archived posts yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

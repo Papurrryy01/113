@@ -15,15 +15,40 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'post_list' %}">Posts</a>
         </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'post_draft_list' %}">Drafts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'post_archived_list' %}">Archived</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'create_post' %}">Create New Post</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+        </li>
+        {% endif %}
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
+            {% if user.is_authenticated %}
+            <li><a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li>
+              <form action="{% url 'logout' %}" method="post" class="px-3">
+                {% csrf_token %}
+                <button type="submit" class="dropdown-item">Log Out</button>
+              </form>
+            </li>
+            {% else %}
+            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+            <li><a class="dropdown-item" href="{% url 'signup' %}">Sign Up</a></li>
+            {% endif %}
           </ul>
         </li>
         <li class="nav-item">

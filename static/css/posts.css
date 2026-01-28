@@ -1,0 +1,35 @@
+.post-page {
+  padding: 2rem 0;
+}
+
+.post-page h1 {
+  margin-bottom: 1.5rem;
+}
+
+.post-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.post-meta {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.post-actions a {
+  margin-right: 0.75rem;
+}
+
+.post-form {
+  max-width: 720px;
+}
+
+.post-form .btn {
+  min-width: 120px;
+}

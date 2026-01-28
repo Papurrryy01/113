@@ -4,6 +4,21 @@ from django.urls import reverse
 
 # Create your models here.
 
+class Status(models.Model):
+    name = models.CharField(max_length=128, unique=True)
+    description = models.CharField(max_length=256, help_text="A brief description of the status")
+
+    class Meta:
+        verbose_name = "status"
+        verbose_name_plural = "statuses"
+
+    def __str__(self):
+        return self.name
+
+
+
+
+
 class Post(models.Model):
     title = models.CharField(max_length=120)
     subtitle = models.CharField(max_length=256)
@@ -11,6 +26,10 @@ class Post(models.Model):
     author = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
+    )
+    status = models.ForeignKey(
+        Status,
+        on_delete=models.DO_NOTHING
     )
     created_on = models.DateTimeField(auto_now_add=True)
 
