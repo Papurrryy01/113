@@ -3,7 +3,7 @@ from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from .models import Post, Status
 
@@ -48,7 +48,7 @@ class PostDetailView(LoginRequiredMixin, DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     template_name = "posts/new.html"
     model = Post
-    fields = ["title", "subtitle", "body", "author", "status"]
+    fields = ["title", "subtitle", "body", "status"]
 
     def form_valid(self, form):
         print(User.objects.all())
@@ -57,23 +57,24 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 
 # --mini challenge--
-class PostUpdateView(LoginRequiredMixin, UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = "posts/post_update.html"
     model = Post
-    fields = ["title", "subtitle", "body", "author"]
+    fields = ["title", "subtitle", "body", "status"]
+
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author
 
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = "posts/post_delete.html"
     model = Post
     success_url = reverse_lazy("post_list")
 
     def test_func(self):
         post = self.get_object()
-        if self.request.user == post.author:
-            return True
-        else:
-            return False
+        return self.request.user == post.author
 
 
 class PostListView(PostPublishedListView):
